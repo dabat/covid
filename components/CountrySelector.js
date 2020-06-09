@@ -3,8 +3,13 @@ import Stats from "./Stats";
 import { useState } from "react";
 import styled from "styled-components";
 
-const Selector = styled.div`
-  background: #e6f7ff;
+const Selector = styled.select`
+  font-family: "Victor Mono", Roboto, monospace;
+  font-size: 1rem;
+`;
+
+const SelectorBlock = styled.div`
+  background: #cad8e1;
   padding: 2rem;
   margin: 1rem;
   border-radius: 2rem;
@@ -26,29 +31,32 @@ export default function CountrySelector() {
     (c) => c.iso3 === selectedCountry
   )[0].name;
 
+  // if the country has no iso3 code then generate one
+  countryData.countries.forEach((country, index) => {
+    if (!country.iso3) {
+      country.iso3 = index.toString().padStart(3, "0");
+    }
+  });
+
   return (
     <div>
-      <Selector>
+      <SelectorBlock>
         <h2>
           Currently Showing {`${selectedCountryName} (${selectedCountry})`}
         </h2>
-        <select
+        <Selector
           onChange={(e) => {
             setSelectedCountry(e.target.value);
           }}
-          // value={selectedCountry === country.iso3}
+          defaultValue={selectedCountry}
         >
           {countryData.countries.map((country) => (
-            <option
-              selected={selectedCountry === country.iso3}
-              key={country.iso3}
-              value={country.iso3}
-            >
+            <option key={country.iso3} value={country.iso3}>
               {country.name}
             </option>
           ))}
-        </select>
-      </Selector>
+        </Selector>
+      </SelectorBlock>
       <Stats
         url={`https://covid19.mathdro.id/api/countries/${selectedCountry}`}
       />

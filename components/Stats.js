@@ -7,7 +7,8 @@ const StatGrid = styled.div`
 `;
 
 const StatBlock = styled.div`
-  background: #f2f2f2;
+  background: #bacdde;
+  font-family: Roboto, "Andale Mono", sans-serif;
   font-size: 2rem;
   padding: 2rem;
   margin: 1rem;
@@ -18,6 +19,11 @@ const StatBlock = styled.div`
   justify-items: center;
 `;
 
+const Formatter = (number) => {
+  return number ? new Intl.NumberFormat().format(number) : 0;
+};
+console.log(Formatter(3356231));
+
 export default function Stats({ url }) {
   const { stats, loading, error } = useStats(url);
 
@@ -26,16 +32,16 @@ export default function Stats({ url }) {
   return (
     <StatGrid>
       <StatBlock>
-        <h1>Confirmed:</h1>
-        <span>{stats.confirmed?.value || 0}</span>
+        <h1>Confirmed</h1>
+        <span>{Formatter(stats.confirmed.value)}</span>
       </StatBlock>
       <StatBlock>
-        <h1>Recovered:</h1>
-        <span>{stats.recovered?.value || 0}</span>
+        <h1>Recovered</h1>
+        <span>{Formatter(stats.recovered.value)}</span>
       </StatBlock>
       <StatBlock>
-        <h1>Deaths:</h1>
-        <span>{stats.deaths?.value || 0}</span>
+        <h1>Deaths</h1>
+        <span>{Formatter(stats.deaths.value)}</span>
       </StatBlock>
     </StatGrid>
   );
