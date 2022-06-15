@@ -1,5 +1,5 @@
-import useStats from "../utils/useStats";
-import styled from "styled-components";
+import useStats from '../utils/useStats';
+import styled from 'styled-components';
 
 const StatGrid = styled.div`
   display: grid;
@@ -8,7 +8,7 @@ const StatGrid = styled.div`
 
 const StatBlock = styled.div`
   background: #bacdde;
-  font-family: Roboto, "Andale Mono", sans-serif;
+  font-family: Roboto, 'Andale Mono', sans-serif;
   font-size: 2rem;
   padding: 2rem;
   margin: 1rem;
@@ -22,7 +22,6 @@ const StatBlock = styled.div`
 const Formatter = (number) => {
   return number ? new Intl.NumberFormat().format(number) : 0;
 };
-console.log(Formatter(3356231));
 
 export default function Stats({ url }) {
   const { stats, loading, error } = useStats(url);
